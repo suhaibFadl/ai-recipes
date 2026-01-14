@@ -10,14 +10,14 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday'
 import BottomNav from './BottomNav'
 
 interface HomePageProps {
-  onNavigate: (page: 'recipes' | 'image-to-description' | 'meal-schedule' | 'day-meals', dayData?: { dayName: string, meals: any[] }) => void
+  onNavigate: (page: 'recipes' | 'image-to-description' | 'meal-schedule' | 'day-meals' | 'recipe-details', dayData?: { dayName: string, meals: any[] }, recipeId?: string) => void
   currentNav?: string
   onNavChange?: (value: string) => void
 }
 
 const popularRecipes = [
   {
-    id: 1,
+    id: '3',
     title: 'Chicken Curry',
     category: 'Indian',
     time: '15 mins',
@@ -26,16 +26,7 @@ const popularRecipes = [
     onClick: () => {}
   },
   {
-    id: 2,
-    title: 'Crepes with Orange',
-    category: 'Western',
-    time: '35 mins',
-    rating: 4.5,
-    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop',
-    onClick: () => {}
-  },
-  {
-    id: 3,
+    id: '1',
     title: 'Pasta Carbonara',
     category: 'Italian',
     time: '20 mins',
@@ -44,12 +35,12 @@ const popularRecipes = [
     onClick: () => {}
   },
   {
-    id: 4,
-    title: 'Grilled Salmon',
-    category: 'Seafood',
-    time: '25 mins',
-    rating: 4.7,
-    image: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b3a6?w=400&h=300&fit=crop',
+    id: '9',
+    title: 'Tuna Salad',
+    category: 'Salad',
+    time: '15 mins',
+    rating: 4.6,
+    image: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400&h=300&fit=crop',
     onClick: () => {}
   }
 ]
@@ -79,6 +70,9 @@ const ingredientAds = [
 ]
 
 export default function HomePage({ onNavigate, currentNav = 'home', onNavChange }: HomePageProps) {
+  const handleRecipeClick = (recipeId: string) => {
+    onNavigate('recipe-details', undefined, recipeId)
+  }
   const [currentAdIndex, setCurrentAdIndex] = useState(0)
 
   useEffect(() => {
@@ -428,7 +422,7 @@ export default function HomePage({ onNavigate, currentNav = 'home', onNavChange 
           {popularRecipes.map((recipe) => (
             <Card
               key={recipe.id}
-              onClick={recipe.onClick}
+              onClick={() => handleRecipeClick(recipe.id)}
               sx={{
                 cursor: 'pointer',
                 transition: 'transform 0.2s, box-shadow 0.2s',
@@ -450,7 +444,7 @@ export default function HomePage({ onNavigate, currentNav = 'home', onNavChange 
                   sx={{
                     position: 'relative',
                     width: '100%',
-                    height: 240,
+                    height: 180,
                     backgroundColor: 'grey.300',
                     overflow: 'hidden'
                   }}

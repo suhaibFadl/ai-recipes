@@ -76,10 +76,14 @@ export default function Home() {
         )}
         {currentPage === 'home' && (
           <HomePage 
-            onNavigate={(page, dayData) => {
+            onNavigate={(page, dayData, recipeId) => {
               if (page === 'day-meals' && dayData) {
                 setSelectedDayData(dayData)
                 setCurrentPage('day-meals')
+              } else if (page === 'recipe-details' && recipeId) {
+                setSelectedRecipeId(recipeId)
+                setPreviousPage('home' as any)
+                setCurrentPage('recipe-details')
               } else {
                 navigateToPage(page)
               }

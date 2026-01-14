@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { Box, Container, Typography, Card, CardContent, List, ListItem, ListItemText, Stack, AppBar as MuiAppBar, Toolbar, IconButton, Button, Rating, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@mui/material'
+import { Box, Container, Typography, Card, CardContent, List, ListItem, ListItemText, Stack, AppBar as MuiAppBar, Toolbar, IconButton, Button, Rating, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Chip } from '@mui/material'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday'
@@ -191,6 +191,27 @@ const dummyRecipes: Record<string, { name: string, image: string, rating: number
       'Spread butter mixture on bread',
       'Bake for 10-12 minutes until golden',
       'Serve warm'
+    ]
+  },
+  '9': {
+    name: 'Tuna Salad',
+    image: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400&h=300&fit=crop',
+    rating: 4.6,
+    ingredients: [
+      '2 cans tuna, drained',
+      '1/2 cup mayonnaise',
+      '1/4 cup celery, diced',
+      '1/4 cup red onion, diced',
+      '2 tbsp lemon juice',
+      'Salt and pepper to taste'
+    ],
+    method: [
+      'Drain tuna and flake with a fork',
+      'Mix tuna with mayonnaise',
+      'Add celery and red onion',
+      'Stir in lemon juice',
+      'Season with salt and pepper',
+      'Chill for 30 minutes before serving'
     ]
   }
 }
@@ -469,16 +490,25 @@ export default function RecipeDetailsPage({ recipeId, onBack, currentNav = 'reci
                <Typography variant="h6" gutterBottom sx={{ color: 'text.primary', mb: 2 }}>
                  🥘 Ingredients
                </Typography>
-               <List>
+               <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
                  {recipe.ingredients.map((ingredient, index) => (
-                   <ListItem key={index} sx={{ px: 0, py: 1 }}>
-                     <ListItemText 
-                       primary={ingredient}
-                       primaryTypographyProps={{ color: 'text.secondary' }}
-                     />
-                   </ListItem>
+                   <Chip
+                     key={index}
+                     label={ingredient}
+                     sx={{
+                       backgroundColor: 'surface.variant',
+                       color: 'text.primary',
+                       fontWeight: 500,
+                       fontSize: '14px',
+                       height: '32px',
+                       '&:hover': {
+                         backgroundColor: 'primary.light',
+                         color: 'primary.dark',
+                       }
+                     }}
+                   />
                  ))}
-               </List>
+               </Box>
              </Box>
 
              <Box>
